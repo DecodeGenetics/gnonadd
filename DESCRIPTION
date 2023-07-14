@@ -1,0 +1,21 @@
+Package: gnonadd
+Type: Package
+Title: Various Non-Additive Models for Genetic Associations
+Version: 1.0.0
+Authors@R: c(
+     person("Audunn S.", "Snaebjarnarson", , "audunn.snaebjarnarson@decode.is", role = c("aut", "cre")),
+     person("Gudmundur", "Einarsson", , "gudmundur.einarsson2@decode.is", role = c("aut")),
+     person("Daniel F.", "Gudbjartsson", , "daniel.gudbjartsson@decode.is", role = c("aut"))
+     )
+Description: The goal of gnonadd is to simplify workflows in the analysis of non-additive effects of 
+    sequence variants. This includes variance effects, correlation effects, interaction 
+    effects and dominance effects.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.1
+Depends: 
+    R (>= 2.10)
+Imports: 
+    ggplot2,
+    MASS
