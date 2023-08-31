@@ -36,9 +36,9 @@ Thus H0 has three degrees of freedom (mu,b,sigma_sq), whereas H1 has four (mu,b,
 }
 \examples{
 
-n_val <- 100000L
+n_val <- 50000L
 trait_vec <- rnorm(n_val,0,1)
 var_vec <- exp(rnorm(n_val,0,0.1))
 est_vec <- trait_vec+rnorm(n_val,0,var_vec)
-res <- Var.assoc(trait_vec,est_vec,var_vec)
+res <- Var.assoc(trait_vec,est_vec,var_vec, iter = 20)
 }

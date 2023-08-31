@@ -25,11 +25,11 @@
 #' * pval, the p-value of the likelihood ratio test
 #' @examples
 #'
-#' n_val <- 100000L
+#' n_val <- 50000L
 #' trait_vec <- rnorm(n_val,0,1)
 #' var_vec <- exp(rnorm(n_val,0,0.1))
 #' est_vec <- trait_vec+rnorm(n_val,0,var_vec)
-#' res <- Var.assoc(trait_vec,est_vec,var_vec)
+#' res <- Var.assoc(trait_vec,est_vec,var_vec, iter = 20)
 #' @export
 Var.assoc <- function(qt, m_score, v_score, iter=50) {
   n <- length(qt)
