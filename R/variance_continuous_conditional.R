@@ -32,16 +32,16 @@ alpha.continuous.cond <- function(qt, g, x, iter_num = 50, eps_param = 1e-10) {
   n_subjects <- length(qt)
   n_covars <- ncol(x)
   g_factor <- as.factor(g)
-  
+
   #We fit a linear model to the data and obtain residuals. We then performe the variance test on the residuals.
   #This is the only place where we treat genotype as a discrete variable.
   formula_string <- 'qt ~ g_factor'
   for(i in 1:n_covars){
     formula_string <- paste(formula_string, ' + x[, ', as.character(i), ']', sep="")
   }
-  formula_string <- as.formula(formula_string)
-  y <- lm(formula_string)$residuals
-  
+  formula_string <- stats::as.formula(formula_string)
+  y <- stats::lm(formula_string)$residuals
+
   #Null model.
   a <- alpha.multi.est(qt, x, iter_num, eps_param)
   v <- exp(- (x %*% a))
@@ -50,7 +50,7 @@ alpha.continuous.cond <- function(qt, g, x, iter_num = 50, eps_param = 1e-10) {
   for(k in 1:n_covars){
     l_null <- l_null - sum(a[k] * x[,k])
   }
-  
+
   #Alt model
   x_alt <- cbind(g, x)
   a <- alpha.multi.est(qt, x_alt, iter_num, eps_param)
@@ -60,11 +60,11 @@ alpha.continuous.cond <- function(qt, g, x, iter_num = 50, eps_param = 1e-10) {
   for(k in 1:(n_covars + 1)){
     l_alt <- l_alt - sum(a[k] * x_alt[,k])
   }
-  
+
   #Computation of significance
   X2 <- l_alt - l_null  #Note that I removed a factor of 1/2 when calculating l_null and l_alt. Hence there is no factor of 2 here.
-  p <- pchisq(X2, 1, lower.tail = F)
-  
+  p <- stats::pchisq(X2, 1, lower.tail = F)
+
   return(list(alpha = a[1], pval = p, X2 = X2))
 }
 

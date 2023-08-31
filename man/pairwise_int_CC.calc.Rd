@@ -44,6 +44,8 @@ freqs <- runif(ncol(g_vec), min = 0,max = 1)
 for(i in 1:ncol(g_vec)){
  g_vec[, i] <- rbinom(100000, 2, freqs[i])
 }
-cc_vec <- rbinom(100000,1,0.1 * (1.05 ^ g_vec[, 1]) * (1.06 ^ g_vec[,2]) * (0.95 ^ g_vec[, 3]) * (1.5^(g_vec[,1] * g_vec[,2])))
+cc_vec <- rbinom(100000,1,0.1 * (1.05 ^ g_vec[, 1]) *
+          (1.06 ^ g_vec[,2]) * (0.95 ^ g_vec[, 3]) *
+          (1.5^(g_vec[,1] * g_vec[,2])))
 res <- pairwise_int_CC.calc(cc_vec, g_vec)
 }

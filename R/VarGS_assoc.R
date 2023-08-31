@@ -17,6 +17,7 @@
 #' @param qt A numeric vector.
 #' @param m_score A numeric vector
 #' @param v_score A numeric vector with positive values
+#' @param iter A number of iterations for the Gauss-Newton algorithm
 #' @returns
 #' A list with the values:
 #'
@@ -74,7 +75,7 @@ Var.assoc <- function(qt, m_score, v_score, iter=50) {
   }
 
   # Evaluated likelyhood-functions
-  l_null <- - n * log((n-1) * var(l$residuals) / n)
+  l_null <- - n * log((n-1) * stats::var(l$residuals) / n)
   l_alt <- - n * log(sigma_sq) - a * sum(v_score)
   xi2 <- l_alt - l_null
   p <- stats::pchisq(xi2, 1, lower.tail=F)

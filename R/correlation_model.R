@@ -51,7 +51,7 @@ kappa_calc <- function(qt1, qt2, g, weight_scale=1, bias_scale=0) {
   # Therefore the corresponding weight (w) is porportional to n-3.
   # If qt1 and qt2 are jointly normal then (theoretically) there is no bias and the weight simply equals n-3.
   if(n0 > 3) {
-    r0 <- cor(qt1[g==0], qt2[g==0])
+    r0 <- stats::cor(qt1[g==0], qt2[g==0])
     z0 <- log((1 + r0) / (1 - r0)) / 2 - bias_scale / (n0 - 3)
     w0 <- (n0 - 3) / weight_scale
   }else {
@@ -60,7 +60,7 @@ kappa_calc <- function(qt1, qt2, g, weight_scale=1, bias_scale=0) {
     w0 <- 0
   }
   if(n1 > 3) {
-    r1 <- cor(qt1[g==1], qt2[g==1])
+    r1 <- stats::cor(qt1[g==1], qt2[g==1])
     z1 <- log((1 + r1) / (1 - r1)) / 2 - bias_scale / (n1 - 3)
     w1 <- (n1 - 3) / weight_scale
   }else {
@@ -69,7 +69,7 @@ kappa_calc <- function(qt1, qt2, g, weight_scale=1, bias_scale=0) {
     w1 <- 0
   }
   if(n2 > 3) {
-    r2 <- cor(qt1[g==2], qt2[g==2])
+    r2 <- stats::cor(qt1[g==2], qt2[g==2])
     z2 <- log((1 + r2) / (1 - r2)) / 2 - bias_scale / (n2 - 3)
     w2 <- (n2 - 3) / weight_scale
   }else {
@@ -89,6 +89,6 @@ kappa_calc <- function(qt1, qt2, g, weight_scale=1, bias_scale=0) {
   l_alt <- (w0 * (z0 - z_alt)^2 + w1 * (z1 - z_alt - kappa)^2 + w2 * (z2 - z_alt - 2 * kappa)^2) / 2
 
   #Calculation of significance
-  p <- pchisq(2 * (l_null - l_alt), 1,lower.tail = F)
+  p <- stats::pchisq(2 * (l_null - l_alt), 1,lower.tail = F)
   return(list(kappa = kappa, pval = p))
 }

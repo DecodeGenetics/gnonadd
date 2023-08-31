@@ -33,7 +33,8 @@
 #'
 #' qt_vec <- rnorm(100000) + 0.2 * g_train_vec[, 1] + 0.3 * g_train_vec[, 1] * g_train_vec[, 4]
 #'
-#' res <- train_and_impute_PRS(qt_vec, g_train_vec, g_impute_vec, dominance_effects = dom_vec, interaction_effects = int_vec)
+#' res <- train_and_impute_PRS(qt_vec, g_train_vec, g_impute_vec,
+#'        dominance_effects = dom_vec, interaction_effects = int_vec)
 #' @export
 train_and_impute_PRS <- function(qt_training, g_training, g_impute, dominance_effects = rep(FALSE, ncol(g_training)), interaction_effects = matrix(0, nrow = 0, ncol = 0)){
   Data_training <- as.data.frame(cbind(qt_training, g_training))
@@ -73,9 +74,9 @@ train_and_impute_PRS <- function(qt_training, g_training, g_impute, dominance_ef
   }
   Data_training <- cbind(Data_training, int_data_training)
   Data_impute <- cbind(Data_impute, int_data_impute)
-  l <- lm(qt~., data = Data_training)
-  PRS_impute <- predict(l,Data_impute)
-  PRS_training <- predict(l,Data_training)
+  l <- stats::lm(qt~., data = Data_training)
+  PRS_impute <- stats::predict(l,Data_impute)
+  PRS_training <- stats::predict(l,Data_training)
   r <- l$residuals
   return(list(PRS_imputed = PRS_impute, PRS_training = PRS_training, Residuals_training = r))
 }

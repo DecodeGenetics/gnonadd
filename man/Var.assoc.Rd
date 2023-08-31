@@ -12,6 +12,8 @@ Var.assoc(qt, m_score, v_score, iter = 50)
 \item{m_score}{A numeric vector}
 
 \item{v_score}{A numeric vector with positive values}
+
+\item{iter}{A number of iterations for the Gauss-Newton algorithm}
 }
 \value{
 A list with the values:

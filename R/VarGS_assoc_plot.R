@@ -20,6 +20,8 @@
 #' VarGS.plot(qt_vec, v_vec)
 #' @export
 VarGS.plot <- function(qt, v_score, bins = 10, xlab = 'Predicted variance', ylab = 'Variance', title = '') {
+  vRS_mean <- NULL
+  quantile_variance <- NULL
   n <- length(qt)
   v_score <- log(v_score)
   v_score_quantiles <- as.numeric(stats::quantile(v_score, 0 : bins / bins))
@@ -28,14 +30,14 @@ VarGS.plot <- function(qt, v_score, bins = 10, xlab = 'Predicted variance', ylab
     quantile_list[v_score > v_score_quantiles[i] & v_score <= v_score_quantiles[i + 1]] <- i
   }
   M <- as.data.frame(matrix(0, bins, 3))
-  colnames(M) <- c('quantile', 'vRS_mean', 'var')
+  colnames(M) <- c('quantile', 'vRS_mean', 'quantile_variance')
   M$quantile <- 1:bins
   for(i in 1:bins){
     M$vRS_mean[i] <- mean(v_score[quantile_list == i])
-    M$var[i] <- stats::var(qt[quantile_list == i])
+    M$quantile_variance[i] <- stats::var(qt[quantile_list == i])
   }
   M$vRS_mean <- exp(M$vRS_mean)
-  ggplot2::ggplot(M, ggplot2::aes(x = vRS_mean, y = var)) +
+  ggplot2::ggplot(M, ggplot2::aes(x = vRS_mean, y = quantile_variance)) +
     ggplot2::geom_point() + ggplot2::geom_line() + ggplot2::theme_classic() +
     ggplot2::xlab(xlab) + ggplot2::ylab(ylab) + ggplot2::ggtitle(title)
 }

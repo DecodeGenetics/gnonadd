@@ -50,6 +50,7 @@ Effect size and significance is based on the interaction term.
 \examples{
 g_vec <- rbinom(100000, 2, 0.9)
 env_vec <- round(runif(100000, min = 0, max = 6))
-cc_vec <- rbinom(100000,1,0.1 * (1.05^g_vec) * (1.1^env_vec)* (1.1 ^ (g_vec * env_vec)))
+cc_vec <- rbinom(100000,1,0.1 * (1.05^g_vec) *
+          (1.1^env_vec)* (1.1 ^ (g_vec * env_vec)))
 res <- env_interaction_CC.calc(cc_vec, g_vec, env_vec)
 }

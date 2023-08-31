@@ -15,7 +15,7 @@
 #' * df, degrees of freedom for the chi2 statistic
 #' * pval, p-value of the model
 #' * adjusted_values, a vector with qt values that have been adjusted for both mean and variance effects
-#' 
+#'
 #' @examples
 #' n_val <- 50000
 #' x <- as.data.frame(matrix(0,nrow = n_val, ncol = 4))
@@ -31,12 +31,12 @@ var.summary <- function(qt, x, iter_num = 50, eps_param = 1e-10) {
   x_matrix <- as.matrix(x)
   n_subjects <- length(qt)
   n_covars <- ncol(x)
-  
+
   #First we mean adjust the trait
   A <- as.data.frame(cbind(qt, x))
   colnames(A)[1] <- 'qt'
-  qt_mean_adj <- lm(qt ~ ., data = A)$residuals
-  
+  qt_mean_adj <- stats::lm(qt ~ ., data = A)$residuals
+
   #All parameters model
   a_all <- alpha.multi.est(qt_mean_adj, x_matrix, iter_num = iter_num, eps_param = eps_param)
   v_all <- exp(- (x_matrix %*% a_all))
@@ -47,17 +47,17 @@ var.summary <- function(qt, x, iter_num = 50, eps_param = 1e-10) {
   }
   adjustment_scalar <- 1 / exp((x_matrix %*% a_all) / 2)
   qt_var_adj <- qt_mean_adj * adjustment_scalar
-  
+
   #Null model
   a_null <- rep(0, n_covars)
   v_null <- rep(1, n_subjects)
   SigmaSq_null <- sum(qt_mean_adj^2 * v_null) / n_subjects
   l_null <- - n_subjects * log(SigmaSq_null)
-  
+
   #Comparing all with null
   X2_all_vs_null <- l_all - l_null
-  p_all_vs_null <- pchisq(X2_all_vs_null, n_covars, lower.tail = F)
-  
+  p_all_vs_null <- stats::pchisq(X2_all_vs_null, n_covars, lower.tail = F)
+
   #Partial models
   M <- as.data.frame(matrix(0, nrow = n_covars, ncol = 5))
   colnames(M) <- c('Variable','var_effect','se','X2','pval')
@@ -75,7 +75,7 @@ var.summary <- function(qt, x, iter_num = 50, eps_param = 1e-10) {
         l_partial <- l_partial - sum(a_partial[k] * x_partial[,k])
       }
       X2_partial <- l_all - l_partial
-      p_partial <- pchisq(X2_partial, 1, lower.tail = F)
+      p_partial <- stats::pchisq(X2_partial, 1, lower.tail = F)
       se_partial <- abs(a_all[i])/sqrt(X2_partial)
       M$se[i] <- se_partial
       M$X2[i] <- X2_partial
@@ -83,7 +83,7 @@ var.summary <- function(qt, x, iter_num = 50, eps_param = 1e-10) {
     }
   } else {
     M$X2[1] <- X2_all_vs_null
-    M$pval[1] <- pchisq(X2_all_vs_null, 1, lower.tail = F)
+    M$pval[1] <- stats::pchisq(X2_all_vs_null, 1, lower.tail = F)
     M$se[1] <- abs(a_all)/sqrt(X2_all_vs_null)
   }
   return(list(summary = M, chi2 = X2_all_vs_null, df = n_covars, pval = p_all_vs_null, adjusted_values = qt_var_adj))

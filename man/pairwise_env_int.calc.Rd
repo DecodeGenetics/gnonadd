@@ -52,6 +52,8 @@ for( i in 1:ncol(env_vec)){
  env_vec[, i] <- round(runif(100000,min=0,max=6))
 }
 
-qt_vec <- rnorm(100000) + 0.1 * g_vec[, 1] + 0.2 * g_vec[, 2] -0.1 * env_vec[, 3] + 0.1 * env_vec[, 1] + 0.1 * g_vec[, 1] * env_vec[, 1]
+qt_vec <- rnorm(100000) + 0.1 * g_vec[, 1] + 0.2 *
+          g_vec[, 2] -0.1 * env_vec[, 3] + 0.1 *
+          env_vec[, 1] + 0.1 * g_vec[, 1] * env_vec[, 1]
 res <- pairwise_env_int.calc(qt_vec, g_vec, env_vec)
 }

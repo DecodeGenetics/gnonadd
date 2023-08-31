@@ -25,7 +25,7 @@ corr.calibration <- function(qt1, qt2, reps=10000) {
 
   # The 'true' fisher translated correlation value is obtained from the entire data
   n <- length(qt1)
-  r_true <- cor(qt1, qt2)
+  r_true <- stats::cor(qt1, qt2)
   z_true <- log((1 + r_true) / (1 - r_true)) / 2
 
   # k is a vector of sample sizes we are going to extract from the data, s is there to make sure we do not exceed the number of data-points we have
@@ -37,14 +37,14 @@ corr.calibration <- function(qt1, qt2, reps=10000) {
     z_vector <- rep(0, reps) #A vector containing all the z-values obtained with the current sample size
     for(j in 1:reps) {
       s <- sample(n, k[i], replace=T)
-      r_sample <- cor(qt1[s], qt2[s])
+      r_sample <- stats::cor(qt1[s], qt2[s])
       z_vector[j] <- log((1 + r_sample) / (1 - r_sample)) / 2
     }
     m[i] <- mean(z_vector) - z_true
-    v[i] <- var(z_vector)
+    v[i] <- stats::var(z_vector)
   }
   weight_scale <- exp(mean(log(k - 3) + log(v)))
   safe_weight_scale <- exp(max(log(k - 3) + log(v)))
-  bias_scale <- summary(lm(m ~ I(1 / (k - 3)) + 0))$coeff[1, 1]
+  bias_scale <- summary(stats::lm(m ~ I(1 / (k - 3)) + 0))$coeff[1, 1]
   return(list(bias_scale=bias_scale, weight_scale=weight_scale, safe_weight_scale=safe_weight_scale))
 }

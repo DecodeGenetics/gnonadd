@@ -11,7 +11,7 @@
 #' @param g A vector with (possibly imputed) genotype values. All entries should be larger than 0 and smaller than 2.
 #' @param round_imputed A boolian variable determining whether imputed genotype values should be rounded to the nearest integer in the analysis
 #' @param covariates A dataframe containing any covariates that should be used; one column per covariate.
-#' 
+#'
 #' @returns
 #' A list with the dominanc effect and corresponding standard error, t statistic and p-value
 #' @examples
@@ -32,22 +32,22 @@ dominance.calc <- function(qt, g, round_imputed = F, covariates = as.data.frame(
     p <- NA
   }else {
     g2 <- as.numeric(g_rounded == 2)
-    
+
     #We define a dataframe containing all variables that should be considered
     Dom_data <- as.data.frame(cbind(qt, g2))
     Dom_data <- cbind(Dom_data, g)
     if(nrow(covariates) > 0) {
       Dom_data <- cbind(Dom_data, covariates)
     }
-    
+
     #We use linear regression to estimate the dominance effect
-    l_delta <- lm(qt ~ ., data = Dom_data)
+    l_delta <- stats::lm(qt ~ ., data = Dom_data)
     param <- "g2"
-    if(param %in% rownames(coef(summary(l_delta)))){
+    if(param %in% rownames(stats::coef(summary(l_delta)))){
       delta <- summary(l_delta)$coeff[param, 1]
       se <- summary(l_delta)$coeff[param, 2]
       t <- summary(l_delta)$coeff[param, 3]
-      p <- summary(l_delta)$coeff[param, 4] 
+      p <- summary(l_delta)$coeff[param, 4]
     }else{
       warning("Singular model matrix")
       delta <- NA

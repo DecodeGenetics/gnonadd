@@ -64,7 +64,7 @@ alpha.calc <- function(qt, g) {
 
   # Calculation of significance
   X2 <- 2 * (l1 - l0)
-  pval <- pchisq(X2, 1, lower.tail=F)
+  pval <- stats::pchisq(X2, 1, lower.tail=F)
 
   if(flip >0.5){
     # We flip the parameters back, so they are in accordence with the input effect allele

@@ -8,7 +8,7 @@
 #' @param x A numeric matrix, each column represents a covariate.
 #' @param iter_num An integer. Represents the number of iterations performed in the Gauss-Newton algorithm
 #' @param eps_param A number. The Gauss-Newton algorithm terminates if the incriment change of all variance estimates is smaller than this number.
-#' @param initial_guess. A vector of length ncol(x). Represents the initial guess of parameters for the Gauss-Newton algorithm.
+#' @param initial_guess A vector of length ncol(x). Represents the initial guess of parameters for the Gauss-Newton algorithm.
 #'
 #' @returns
 #' A vector with a variance estimate for each variable.
@@ -29,7 +29,7 @@ alpha.multi.est <- function(qt, x, iter_num = 50, eps_param = 1e-10, initial_gue
   a <- initial_guess  #This is the original guess of variance parameters for the covariates.
   for(i in 1:iter_num){
     A <- Aux_cont_likely(a, qt, x)
-    increment <- solve(A$hessian) %*% A$gradiant 
+    increment <- solve(A$hessian) %*% A$gradiant
     a <- a - increment
     if(max(abs(increment)) < eps_param){
       break

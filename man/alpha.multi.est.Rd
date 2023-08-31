@@ -21,7 +21,7 @@ alpha.multi.est(
 
 \item{eps_param}{A number. The Gauss-Newton algorithm terminates if the incriment change of all variance estimates is smaller than this number.}
 
-\item{initial_guess.}{A vector of length ncol(x). Represents the initial guess of parameters for the Gauss-Newton algorithm.}
+\item{initial_guess}{A vector of length ncol(x). Represents the initial guess of parameters for the Gauss-Newton algorithm.}
 }
 \value{
 A vector with a variance estimate for each variable.

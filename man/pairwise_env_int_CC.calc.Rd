@@ -57,6 +57,8 @@ for(i in 1:ncol(g_vec)){
 for( i in 1:ncol(env_vec)){
  env_vec[, i] <- round(runif(100000,min=0,max=6))
 }
-cc_vec <- rbinom(100000,1,0.1 * (1.05 ^ g_vec[, 1]) * (1.06 ^ env_vec[,1]) * (0.95 ^ g_vec[, 2]) * (1.1^(g_vec[, 1] * env_vec[, 1])))
+cc_vec <- rbinom(100000,1,0.1 * (1.05 ^ g_vec[, 1]) *
+          (1.06 ^ env_vec[,1]) * (0.95 ^ g_vec[, 2]) *
+          (1.1^(g_vec[, 1] * env_vec[, 1])))
 res <- pairwise_env_int_CC.calc(cc_vec, g_vec, env_vec)
 }

@@ -16,7 +16,7 @@
 #' @param dominance_term A boolian variable determining whether a dominance term for the variant should be included as a covariates in the analysis
 #' @param square_env A boolian variable determining whether the square of the environmental trait should be included as a covariate in the analysis
 #' @param covariates A dataframe containing any other covariates that should be used; one column per covariate
-#' 
+#'
 #' @returns
 #' A list with the environmental interaction effect and corresponding standard error, t statistic and p-value
 #' @examples
@@ -28,19 +28,19 @@
 env_interaction.calc <- function(qt, g, env, round_imputed = F, dominance_term = F,
                                  square_env = F,  covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
   r <- rank(env)
-  env_normal <- qnorm(r / (length(r) + 1))
+  env_normal <- stats::qnorm(r / (length(r) + 1))
   if(round_imputed == T){
     g <- round(g)
   }
   int <- g * env_normal
-  if(sd(int) == 0){
+  if(stats::sd(int) == 0){
     warning("Interaction undefined. All interaction values are the same.")
     gamma <- NA
     se <- NA
     t <- NA
     p <- NA
   }else{
-    
+
     #We define a dataframe containing all variables that should be considered
     Env_int_data <- as.data.frame(cbind(qt, int))
     Env_int_data <- cbind(Env_int_data, g)
@@ -54,15 +54,15 @@ env_interaction.calc <- function(qt, g, env, round_imputed = F, dominance_term =
     if(nrow(covariates) > 0) {
       Env_int_data <- cbind(Env_int_data, covariates)
     }
-    
+
     #We use linear regression to estimate the environmental interaction effect
-    l_interaction <- lm(qt ~ ., data = Env_int_data)
+    l_interaction <- stats::lm(qt ~ ., data = Env_int_data)
     param <- "int"
-    if(param %in% rownames(coef(summary(l_interaction)))){
+    if(param %in% rownames(stats::coef(summary(l_interaction)))){
       gamma <- summary(l_interaction)$coeff[param, 1]
       se <- summary(l_interaction)$coeff[param, 2]
       t <- summary(l_interaction)$coeff[param, 3]
-      p <- summary(l_interaction)$coeff[param, 4] 
+      p <- summary(l_interaction)$coeff[param, 4]
     }else{
       warning("Singular model matrix")
       gamma <- NA

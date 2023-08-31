@@ -21,16 +21,17 @@
 #' hist_by_gen(qt_vec, geno_vec)
 #' @export hist_by_gen
 hist_by_gen <- function(qt, g, bins = 100, trait_name = 'qt trait', title = '', outlier_quantiles = c(0.025, 0.975), sd_lines = c(1,1)) {
+  outlier <- NULL
   g <- round(g)
   D <- as.data.frame(cbind(qt,g))
   D$g_factor <- factor(D$g,levels=0:2, labels = c('Non-carriers', 'Heterozygotes', 'Homozygotes'))
-  quant_vals <- as.numeric(quantile(D$qt, outlier_quantiles))
+  quant_vals <- as.numeric(stats::quantile(D$qt, outlier_quantiles))
   D$outlier <- as.factor(0+(D$qt<quant_vals[1] | D$qt > quant_vals[2]))
   a <- sd_lines[1]
   b <- sd_lines[2]
   vertical_lines <- data.frame(g_factor = levels(D$g_factor), mean = c(mean(D$qt[D$g == 0]), mean(D$qt[D$g == 1]), mean(D$qt[D$g == 2])),
-                         lower_sd <- c(mean(D$qt[D$g == 0]) - a * sd(D$qt[D$g == 0]), mean(D$qt[D$g == 1]) - a * sd(D$qt[D$g == 1]), mean(D$qt[D$g == 2]) - a * sd(D$qt[D$g == 2])),
-                         upper_sd <- c(mean(D$qt[D$g == 0]) + b * sd(D$qt[D$g == 0]), mean(D$qt[D$g == 1]) + b * sd(D$qt[D$g == 1]), mean(D$qt[D$g == 2]) + b * sd(D$qt[D$g == 2])))
+                         lower_sd <- c(mean(D$qt[D$g == 0]) - a * stats::sd(D$qt[D$g == 0]), mean(D$qt[D$g == 1]) - a * stats::sd(D$qt[D$g == 1]), mean(D$qt[D$g == 2]) - a * stats::sd(D$qt[D$g == 2])),
+                         upper_sd <- c(mean(D$qt[D$g == 0]) + b * stats::sd(D$qt[D$g == 0]), mean(D$qt[D$g == 1]) + b * stats::sd(D$qt[D$g == 1]), mean(D$qt[D$g == 2]) + b * stats::sd(D$qt[D$g == 2])))
 
   ggplot2::ggplot(D, ggplot2::aes(x = qt, fill = outlier)) + ggplot2::geom_histogram(color = 'black', bins = bins) + ggplot2::theme_classic() +
     ggplot2::facet_grid(g_factor ~ . , scales = "free_y") + ggplot2::xlab(trait_name) + ggplot2::ggtitle(title) +
