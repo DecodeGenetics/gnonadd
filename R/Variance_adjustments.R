@@ -27,7 +27,7 @@ var.adj <- function(qt, x, iter_num = 50, eps_param = 1e-10){
   n_covars <- ncol(x)
   A <- as.data.frame(cbind(qt, x))
   colnames(A)[1] <- "qt"
-  qt_mean_adj <- lm(qt ~ ., data = A)$residuals
+  qt_mean_adj <- stats::lm(qt ~ ., data = A)$residuals
   a <- alpha.multi.est(qt_mean_adj, x, iter_num = 50, eps_param = 1e-10)
   adjustment_scalar <- 1 / exp((x %*% a) / 2)
   qt_adj <- base::scale(qt_mean_adj * adjustment_scalar)

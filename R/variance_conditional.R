@@ -58,7 +58,7 @@ alpha.cond <- function(qt, g, g_covar, iter_num=50) {
   vecs <- list(c(0, 1, 2))   #possible genotypes for a single variant
   vecs <- rep(vecs, n)      #possible genotypes for all variants
   vecs <- as.matrix(do.call(expand.grid, vecs))   #All possible genotype combinations
-  
+
   # The followign if-loop is here to save running time. The fastest code depends on how many covariates there are.
   # If there are only a few covariates, it makes more sense to loop over all possible genotype groops
   # If there are more covariates, it makes more sense to loop over all the subjects and check what genotype groop each one belongs to
@@ -91,8 +91,8 @@ alpha.cond <- function(qt, g, g_covar, iter_num=50) {
       }
     }
   }
-  
-  #Null model. 
+
+  #Null model.
   #The problem can be solved analytically if there is only one covariate. Hence the if-statement
   if(n <= 2){
     rss_null <- c(0, 0, 0)
@@ -108,15 +108,15 @@ alpha.cond <- function(qt, g, g_covar, iter_num=50) {
   }else{
 
     #if there is more than one covariate we use Newtons method to solve the problem numerically
-    vecs_null <- list(c(0, 1, 2))   
-    vecs_null <- rep(vecs_null, n - 1)      
-    vecs_null <- as.matrix(do.call(expand.grid, vecs_null))   
+    vecs_null <- list(c(0, 1, 2))
+    vecs_null <- rep(vecs_null, n - 1)
+    vecs_null <- as.matrix(do.call(expand.grid, vecs_null))
     rss_null <- array(0, rep(3, n - 1))
     for(i in 1:nrow(vecs_null)){
       rss_null[t(1 + vecs_null[i, ])] <- rss[t(1 + c(0, vecs_null[i, ]))] + rss[t(1 + c(1, vecs_null[i, ]))] + rss[t(1 + c(2, vecs_null[i, ]))]
     }
     freqs_null <- freqs[2:n]
-    alpha_null <- rep(1, n - 1)  # This is the orignial guess of the alpha parameters. The subsequent for-loop is Newtons method to obtain the correct maximum likelyhood estimators    
+    alpha_null <- rep(1, n - 1)  # This is the orignial guess of the alpha parameters. The subsequent for-loop is Newtons method to obtain the correct maximum likelyhood estimators
     for(i in 1:iter_num){
       alpha_null <- tryCatch(alpha_null - solve(Hess_likely(alpha_null, rss_null, freqs_null)) %*% G_likely(alpha_null, rss_null, freqs_null), error = function(err) NA)
     }
@@ -127,7 +127,7 @@ alpha.cond <- function(qt, g, g_covar, iter_num=50) {
     sigma_null <- sigma_null / (k * prod(alpha_null^2)) # This is the maximum likelyhood estimator for sigma
     l_null <- - k * log(sigma_null) / 2 - k * sum(log(alpha_null) * freqs_null)  ### This is the likelyhood function evaluated at those values
   }
-  
+
   #Alt model
   #We always need newtons method to solve for the parameters in the alternative model.
   alpha_alt <- rep(1, n)
@@ -136,18 +136,18 @@ alpha.cond <- function(qt, g, g_covar, iter_num=50) {
   }
   if(is.na(alpha_alt[1])){
     P <- alpha_alt
-  }else{ 
+  }else{
     sigma_alt <- 0
     for(i in 1:nrow(vecs)){
       sigma_alt <- sigma_alt + rss[t(1 + vecs[i, ])] * prod(alpha_alt^(2 - vecs[i, ]))
     }
     sigma_alt <- sigma_alt / (k * prod(alpha_alt^2)) # This is the maximum likelyhood estimator for sigma
     l_alt <- - k * log(sigma_alt) / 2 - k * sum(log(alpha_alt)*freqs)  ### This is the likelyhood function evaluated at those values
-  
+
     #Finally we compare the maximized likelyhood functions to obtain an approximated X2-statistic
     X2 <- 2 * (l_alt - l_null)
     alpha_alt <- alpha_alt^(flips)
-    P <- pchisq(X2, 1, lower.tail = F)
+    P <- stats::pchisq(X2, 1, lower.tail = F)
   }
   return(list(alpha = alpha_alt[1], pval = P))
 }

@@ -24,6 +24,13 @@
 #' @export ellipse.by.gen
 ellipse.by.gen <- function(qt1, qt2, g, trait_name1 = 'qt trait 1', trait_name2 = 'qt trait 2',
                         title = '', sample_size = 500) {
+  g_factor <- NULL
+  x0 <- NULL
+  x1 <- NULL
+  x2 <- NULL
+  y0 <- NULL
+  y1 <- NULL
+  y2 <- NULL
   g <- round(g)
   D <- cbind(qt1, qt2)
   D <- cbind(D, g)
@@ -42,7 +49,7 @@ ellipse.by.gen <- function(qt1, qt2, g, trait_name1 = 'qt trait 1', trait_name2 
       D_sample <- rbind(D_sample, D_temp[sample(1:nrow(D_temp), size = min(sample_size, nrow(D_temp)), replace = FALSE), ])
       qt1_mean <- mean(D_temp$qt1)
       qt2_mean <- mean(D_temp$qt2)
-      Sigma <- cov(D_temp[, c(1, 2)])
+      Sigma <- stats::cov(D_temp[, c(1, 2)])
       Princip <- eigen(Sigma)
       flip_direction1 <- 0
       flip_direction2 <- 0
@@ -66,7 +73,7 @@ ellipse.by.gen <- function(qt1, qt2, g, trait_name1 = 'qt trait 1', trait_name2 
   }
   ggplot2::ggplot(D_sample, ggplot2::aes(x = qt1 , y = qt2 ,color = g_factor))+
     ggplot2::geom_point()+ggplot2::theme_classic()+
-    ggplot2::geom_smooth(method = 'lm', data = D, se = F, formula = as.formula('y ~ x')) +
+    ggplot2::geom_smooth(method = 'lm', data = D, se = F, formula = stats::as.formula('y ~ x')) +
     ggplot2::coord_fixed() +
     ggplot2::scale_color_manual(values = c('Non-carriers' = '#F8766D', 'Heterozygotes' = '#00BA38', 'Homozygotes' = '#619CFF')) +
     ggplot2::geom_segment(ggplot2::aes(x = Arrow_data[1, 1], y = Arrow_data[1, 2],

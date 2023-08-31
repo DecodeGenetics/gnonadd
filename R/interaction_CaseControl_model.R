@@ -15,13 +15,14 @@
 #' @param round_imputed A boolian variable determining whether imputed genotype values should be rounded to the nearest integer in the analysis.
 #' @param dominance_terms A boolian variable determining whether dominance terms for the variants should be included as covariates in the analysis
 #' @param covariates A dataframe containing any other covariates that should be used; one column per covariate
-#' 
+#'
 #' @returns
 #' A list with the interaction effect (on log-scale) and corresponding standard error, z statistic and p-value
 #' @examples
 #' g1_vec <- rbinom(100000, 2, 0.9)
 #' g2_vec <- rbinom(100000, 2, 0.1)
-#' cc_vec <- rbinom(100000,1,0.1 * (1.05^g1_vec) * (1.05^g2_vec) * (1.3 ^ (g1_vec * g2_vec)))
+#' cc_vec <- rbinom(100000,1,0.1 * (1.05^g1_vec) *
+#'           (1.05^g2_vec) * (1.3 ^ (g1_vec * g2_vec)))
 #' res <- interaction_CC.calc(cc_vec, g1_vec, g2_vec)
 #' @export
 interaction_CC.calc <- function(cc, g1, g2, yob = rep(-1,length(cc)),
@@ -40,7 +41,7 @@ interaction_CC.calc <- function(cc, g1, g2, yob = rep(-1,length(cc)),
     g2 <- round(g2)
   }
   int <- g1 * g2
-  if(sd(int) == 0){
+  if(stats::sd(int) == 0){
     warning("Interaction undefined. All interaction values are the same.")
     gamma <- NA
     se <- NA
@@ -51,7 +52,7 @@ interaction_CC.calc <- function(cc, g1, g2, yob = rep(-1,length(cc)),
     yob[!no_date] <- yob[!no_date] - mean(yob[!no_date])
     yob[no_date] <- 0
     sex <- as.factor(sex)
-    
+
     #We define a dataframe containing all variables that should be considered
     Int_data <- as.data.frame(cbind(cc, int))
     Int_data <- cbind(Int_data, g1)
@@ -60,7 +61,7 @@ interaction_CC.calc <- function(cc, g1, g2, yob = rep(-1,length(cc)),
       Int_data$g1_dom <- as.numeric(round(Int_data$g1) == 2)
       Int_data$g2_dom <- as.numeric(round(Int_data$g2) == 2)
     }
-    if(sd(yob) > 0) {
+    if(stats::sd(yob) > 0) {
       Int_data <- cbind(Int_data, yob)
     }
     if(length(unique(no_date)) > 1) {
@@ -72,15 +73,15 @@ interaction_CC.calc <- function(cc, g1, g2, yob = rep(-1,length(cc)),
     if(nrow(covariates) > 0) {
       Int_data <- cbind(Int_data, covariates)
     }
-    
+
     #We use logistic regression to estimate the interaction effect
-    l_interaction <- glm(cc ~ ., data = Int_data, family = 'binomial')
+    l_interaction <- stats::glm(cc ~ ., data = Int_data, family = 'binomial')
     param <- "int"
-    if(param %in% rownames(coef(summary(l_interaction)))){
+    if(param %in% rownames(stats::coef(summary(l_interaction)))){
       gamma <- summary(l_interaction)$coeff[param, 1]
       se <- summary(l_interaction)$coeff[param, 2]
       z <- summary(l_interaction)$coeff[param, 3]
-      p <- summary(l_interaction)$coeff[param, 4] 
+      p <- summary(l_interaction)$coeff[param, 4]
     }else{
       warning("Singular model matrix")
       gamma <- NA
@@ -89,7 +90,7 @@ interaction_CC.calc <- function(cc, g1, g2, yob = rep(-1,length(cc)),
       p <- NA
     }
 
-    
+
     gamma <- flip * gamma
   }
   return(list(interaction_effect = gamma, standard_error = se, z = z, pval = p))

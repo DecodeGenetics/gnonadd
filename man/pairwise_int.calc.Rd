@@ -39,6 +39,8 @@ for(i in 1:ncol(g_vec)){
  g_vec[,i] <- rbinom(100000, 2, freqs[i])
 }
 
-qt_vec <- rnorm(100000) + 0.1 * g_vec[, 1] + 0.2 * g_vec[, 2] -0.1 * g_vec[, 3] + 0.2 * g_vec[, 1] * g_vec[, 2]
+qt_vec <- rnorm(100000) + 0.1 * g_vec[, 1] + 0.2 *
+          g_vec[, 2] -0.1 * g_vec[, 3] + 0.2 *
+          g_vec[, 1] * g_vec[, 2]
 res <- pairwise_int.calc(qt_vec, g_vec)
 }

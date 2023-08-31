@@ -17,6 +17,7 @@
 #' Viol.by.gen(qt_vec, geno_vec)
 #' @export
 Viol.by.gen <- function(qt, g, trait_name = 'qt trait', title = '') {
+  g_factor <- NULL
   g <- round(g)
   D <- as.data.frame(cbind(qt, g))
   D$g_factor <- factor(D$g, levels = 0:2,

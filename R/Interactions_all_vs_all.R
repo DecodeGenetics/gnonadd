@@ -20,7 +20,9 @@
 #'  g_vec[,i] <- rbinom(100000, 2, freqs[i])
 #' }
 #'
-#' qt_vec <- rnorm(100000) + 0.1 * g_vec[, 1] + 0.2 * g_vec[, 2] -0.1 * g_vec[, 3] + 0.2 * g_vec[, 1] * g_vec[, 2]
+#' qt_vec <- rnorm(100000) + 0.1 * g_vec[, 1] + 0.2 *
+#'           g_vec[, 2] -0.1 * g_vec[, 3] + 0.2 *
+#'           g_vec[, 1] * g_vec[, 2]
 #' res <- pairwise_int.calc(qt_vec, g_vec)
 #' @export
 pairwise_int.calc <- function(qt, g, round_imputed = F, dominance_terms = F,
@@ -36,7 +38,7 @@ pairwise_int.calc <- function(qt, g, round_imputed = F, dominance_terms = F,
       counter <- counter + 1
       A$name1[counter] <- variant_names[i]
       A$name2[counter] <- variant_names[j]
-      res <- interaction.calc(qt, g[, i], g[, j], round_imputed = round_imputed, 
+      res <- interaction.calc(qt, g[, i], g[, j], round_imputed = round_imputed,
                               dominance_terms = dominance_terms, covariates = covariates)
       A$int_effect[counter] <- res$interaction_effect
       A$se[counter] <- res$standard_error

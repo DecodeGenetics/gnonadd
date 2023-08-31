@@ -48,5 +48,6 @@ int_vec <- matrix(c(1, 2, 4, 5), nrow = 2 , ncol = 2)
 
 qt_vec <- rnorm(100000) + 0.2 * g_train_vec[, 1] + 0.3 * g_train_vec[, 1] * g_train_vec[, 4]
 
-res <- train_and_impute_PRS(qt_vec, g_train_vec, g_impute_vec, dominance_effects = dom_vec, interaction_effects = int_vec)
+res <- train_and_impute_PRS(qt_vec, g_train_vec, g_impute_vec,
+       dominance_effects = dom_vec, interaction_effects = int_vec)
 }

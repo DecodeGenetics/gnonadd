@@ -12,6 +12,8 @@ Var.assoc(qt, m_score, v_score, iter = 50)
 \item{m_score}{A numeric vector}
 
 \item{v_score}{A numeric vector with positive values}
+
+\item{iter}{A number of iterations for the Gauss-Newton algorithm}
 }
 \value{
 A list with the values:
@@ -34,9 +36,9 @@ Thus H0 has three degrees of freedom (mu,b,sigma_sq), whereas H1 has four (mu,b,
 }
 \examples{
 
-n_val <- 100000L
+n_val <- 50000L
 trait_vec <- rnorm(n_val,0,1)
 var_vec <- exp(rnorm(n_val,0,0.1))
 est_vec <- trait_vec+rnorm(n_val,0,var_vec)
-res <- Var.assoc(trait_vec,est_vec,var_vec)
+res <- Var.assoc(trait_vec,est_vec,var_vec, iter = 20)
 }

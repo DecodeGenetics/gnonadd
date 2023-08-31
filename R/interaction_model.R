@@ -13,7 +13,7 @@
 #' @param round_imputed A boolian variable determining whether imputed genotype values should be rounded to the nearest integer in the analysis.
 #' @param dominance_terms A boolian variable determining whether dominance terms for the variants should be included as covariates in the analysis
 #' @param covariates A dataframe containing any other covariates that should be used; one column per covariate
-#' 
+#'
 #' @returns
 #' A list with the interaction effect and corresponding standard error, t statistic and p-value
 #' @examples
@@ -43,14 +43,14 @@ interaction.calc <- function(qt, g1, g2, round_imputed = F, dominance_terms = F,
     g2 <- round(g2)
   }
   int <- g1 * g2
-  if(sd(int) == 0) {
+  if(stats::sd(int) == 0) {
     warning("Interaction undefined. All interaction values are the same.")
     gamma <- NA
     se <- NA
     t <- NA
     p <- NA
   } else{
-    
+
     #We define a dataframe containing all variables that should be considered
     Int_data <- as.data.frame(cbind(qt, int))
     Int_data <- cbind(Int_data, g1)
@@ -62,15 +62,15 @@ interaction.calc <- function(qt, g1, g2, round_imputed = F, dominance_terms = F,
     if(nrow(covariates) > 0){
       Int_data <-cbind(Int_data, covariates)
     }
-  
+
     #We use linear regression to estimate the interaction effect
-    l_interaction <- lm(qt ~ ., data = Int_data)
+    l_interaction <- stats::lm(qt ~ ., data = Int_data)
     param <- "int"
-    if(param %in% rownames(coef(summary(l_interaction)))){
+    if(param %in% rownames(stats::coef(summary(l_interaction)))){
       gamma <- summary(l_interaction)$coeff[param, 1]
       se <- summary(l_interaction)$coeff[param, 2]
       t <- summary(l_interaction)$coeff[param, 3]
-      p <- summary(l_interaction)$coeff[param, 4] 
+      p <- summary(l_interaction)$coeff[param, 4]
     }else{
       warning("Singular model matrix")
       gamma <- NA

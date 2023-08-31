@@ -45,6 +45,7 @@ Effect size and significance is based on the interaction term.
 \examples{
 g1_vec <- rbinom(100000, 2, 0.9)
 g2_vec <- rbinom(100000, 2, 0.1)
-cc_vec <- rbinom(100000,1,0.1 * (1.05^g1_vec) * (1.05^g2_vec) * (1.3 ^ (g1_vec * g2_vec)))
+cc_vec <- rbinom(100000,1,0.1 * (1.05^g1_vec) *
+          (1.05^g2_vec) * (1.3 ^ (g1_vec * g2_vec)))
 res <- interaction_CC.calc(cc_vec, g1_vec, g2_vec)
 }

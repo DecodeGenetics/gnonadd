@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Given a set of variants and environmental traits, and a single case control variable, this function calculates the interaction effect of all possible variant-environmental pairs
-#' 
+#'
 #' @param cc A numeric vector
 #' @param g A matrix, where each colomn represents a variant
 #' @param env A matrix, where each row represents an environmental variable
@@ -18,16 +18,19 @@
 #' @returns
 #' A dataframe with all possible variant-environmental pairs and their estimated interaction effect
 #' @examples
-#' g_vec <- matrix(0, nrow = 100000, ncol = 3)
+#' N_run <- 25000
+#' g_vec <- matrix(0, nrow = N_run, ncol = 3)
 #' freqs <- runif(ncol(g_vec), min = 0, max = 1)
-#' env_vec <- matrix(0, nrow = 100000, ncol = 3)
+#' env_vec <- matrix(0, nrow = N_run, ncol = 3)
 #' for(i in 1:ncol(g_vec)){
-#'  g_vec[, i] <- rbinom(100000, 2, freqs[i])
+#'  g_vec[, i] <- rbinom(N_run, 2, freqs[i])
 #' }
 #' for( i in 1:ncol(env_vec)){
-#'  env_vec[, i] <- round(runif(100000,min=0,max=6))
+#'  env_vec[, i] <- round(runif(N_run,min=0,max=6))
 #' }
-#' cc_vec <- rbinom(100000,1,0.1 * (1.05 ^ g_vec[, 1]) * (1.06 ^ env_vec[,1]) * (0.95 ^ g_vec[, 2]) * (1.1^(g_vec[, 1] * env_vec[, 1])))
+#' cc_vec <- rbinom(N_run,1,0.1 * (1.05 ^ g_vec[, 1]) *
+#'           (1.06 ^ env_vec[,1]) * (0.95 ^ g_vec[, 2]) *
+#'           (1.1^(g_vec[, 1] * env_vec[, 1])))
 #' res <- pairwise_env_int_CC.calc(cc_vec, g_vec, env_vec)
 #' @export
 pairwise_env_int_CC.calc <- function(cc, g, env, yob = rep(-1,length(cc)), sex = rep(-1,length(cc)),
@@ -44,7 +47,7 @@ pairwise_env_int_CC.calc <- function(cc, g, env, yob = rep(-1,length(cc)), sex =
       counter <- counter + 1
       A$variant_name[counter] <- variant_names[i]
       A$env_name[counter] <- env_names[j]
-      res <- env_interaction_CC.calc(cc, g[, i], env[, j], yob = yob, sex = sex, 
+      res <- env_interaction_CC.calc(cc, g[, i], env[, j], yob = yob, sex = sex,
                                      round_imputed = round_imputed, dominance_term = dominance_term, square_env = square_env, covariates = covariates )
       A$int_effect[counter] <- res$interaction_effect
       A$se[counter] <- res$standard_error

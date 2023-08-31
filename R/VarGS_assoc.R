@@ -17,6 +17,7 @@
 #' @param qt A numeric vector.
 #' @param m_score A numeric vector
 #' @param v_score A numeric vector with positive values
+#' @param iter A number of iterations for the Gauss-Newton algorithm
 #' @returns
 #' A list with the values:
 #'
@@ -24,11 +25,11 @@
 #' * pval, the p-value of the likelihood ratio test
 #' @examples
 #'
-#' n_val <- 100000L
+#' n_val <- 50000L
 #' trait_vec <- rnorm(n_val,0,1)
 #' var_vec <- exp(rnorm(n_val,0,0.1))
 #' est_vec <- trait_vec+rnorm(n_val,0,var_vec)
-#' res <- Var.assoc(trait_vec,est_vec,var_vec)
+#' res <- Var.assoc(trait_vec,est_vec,var_vec, iter = 20)
 #' @export
 Var.assoc <- function(qt, m_score, v_score, iter=50) {
   n <- length(qt)
@@ -74,7 +75,7 @@ Var.assoc <- function(qt, m_score, v_score, iter=50) {
   }
 
   # Evaluated likelyhood-functions
-  l_null <- - n * log((n-1) * var(l$residuals) / n)
+  l_null <- - n * log((n-1) * stats::var(l$residuals) / n)
   l_alt <- - n * log(sigma_sq) - a * sum(v_score)
   xi2 <- l_alt - l_null
   p <- stats::pchisq(xi2, 1, lower.tail=F)

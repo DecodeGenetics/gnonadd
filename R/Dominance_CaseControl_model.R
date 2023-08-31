@@ -13,7 +13,7 @@
 #' @param sex A numerical vector containing sex, coded 0 for males, 1 for females and -1 for unknown
 #' @param round_imputed A boolian variable determining whether imputed genotype values should be rounded to the nearest integer in the analysis
 #' @param covariates A dataframe containing any other covariates that should be used; one column per covariate.
-#' 
+#'
 #' @returns
 #' A list with the dominanc effect (on log-scale) and corresponding standard error, z statistic and p-value
 #' @examples
@@ -39,11 +39,11 @@ dominance_CC.calc <- function(cc, g, yob=rep(-1,length(cc)), sex=rep(-1,length(c
     sex <- as.factor(sex)
     g <- g - mean(g)
     g2 <- as.numeric(g_rounded == 2)
-    
+
     #We define a dataframe containing all variables that should be considered
     Dom_data <- as.data.frame(cbind(cc, g2))
     Dom_data <- cbind(Dom_data, g)
-    if(sd(yob) > 0) {
+    if(stats::sd(yob) > 0) {
       Dom_data <- cbind(Dom_data, yob)
     }
     if(length(unique(no_date)) > 1) {
@@ -55,15 +55,15 @@ dominance_CC.calc <- function(cc, g, yob=rep(-1,length(cc)), sex=rep(-1,length(c
     if(nrow(covariates) > 0) {
       Dom_data <- cbind(Dom_data, covariates)
     }
-    
+
     #We use logistic regression to estimate the dominance effect
-    l_delta <- glm(cc ~ ., data = Dom_data, family = 'binomial')
+    l_delta <- stats::glm(cc ~ ., data = Dom_data, family = 'binomial')
     param <- "g2"
-    if(param %in% rownames(coef(summary(l_delta)))){
+    if(param %in% rownames(stats::coef(summary(l_delta)))){
       delta <- summary(l_delta)$coeff[param, 1]
       se <- summary(l_delta)$coeff[param, 2]
       z <- summary(l_delta)$coeff[param, 3]
-      p <- summary(l_delta)$coeff[param, 4] 
+      p <- summary(l_delta)$coeff[param, 4]
     }else{
       warning("Singular model matrix")
       delta <- NA
