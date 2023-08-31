@@ -46,9 +46,16 @@ A more detailed description will be added with further development.
 
 ## Installation
 
-You can install the package via the `remotes` package:
+You can install the latest version of the package via the `remotes`
+package:
 
 ``` r
 # Use remotes:
 remotes::install_github("DecodeGenetics/gnonadd")
+```
+
+When the package is on CRAN, you should be able to install it with:
+
+``` r
+install.packages("gnonadd")
 ```
