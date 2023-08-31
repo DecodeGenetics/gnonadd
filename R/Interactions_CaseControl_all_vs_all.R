@@ -27,7 +27,7 @@
 #' res <- pairwise_int_CC.calc(cc_vec, g_vec)
 #' @export
 pairwise_int_CC.calc <- function(cc, g, yob = rep(-1,length(cc)), sex = rep(-1,length(cc)),
-                                 round_imputed = F, dominance_terms = F, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0)),
+                                 round_imputed = FALSE, dominance_terms = FALSE, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0)),
                                  variant_names = paste(rep('variant', ncol(g)), as.character(1:ncol(g)), sep="_")){
    variant_number <- ncol(g)
   pair_number <- variant_number*(variant_number-1)/2

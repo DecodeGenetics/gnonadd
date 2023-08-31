@@ -21,9 +21,9 @@
 #' cc_vec <- rbinom(100000, 1, 0.1 * (1.2 ^ (g_vec^2)))
 #' res <- dominance_CC.calc(cc_vec, g_vec)
 #' @export
-dominance_CC.calc <- function(cc, g, yob=rep(-1,length(cc)), sex=rep(-1,length(cc)), round_imputed = F, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
+dominance_CC.calc <- function(cc, g, yob=rep(-1,length(cc)), sex=rep(-1,length(cc)), round_imputed = FALSE, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
   g_rounded <- round(g)
-  if(round_imputed == T){
+  if(round_imputed == TRUE){
     g <- round(g)
   }
   if(length(unique(as.factor(g_rounded))) < 3) {

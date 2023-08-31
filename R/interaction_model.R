@@ -22,7 +22,7 @@
 #' qt_vec <- rnorm(100000) + 0.1 * g1_vec + 0.2 * g2_vec +0.4 * g1_vec * g2_vec
 #' res <- interaction.calc(qt_vec, g1_vec, g2_vec)
 #' @export
-interaction.calc <- function(qt, g1, g2, round_imputed = F, dominance_terms = F,
+interaction.calc <- function(qt, g1, g2, round_imputed = FALSE, dominance_terms = FALSE,
                              covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
   NA_vector <- is.na(g1) | is.na(g2) | is.na(qt)
   qt <- qt[!NA_vector]
@@ -38,7 +38,7 @@ interaction.calc <- function(qt, g1, g2, round_imputed = F, dominance_terms = F,
     flip <- - flip
     g2 <- 2 - g2
   }
-  if(round_imputed == T){
+  if(round_imputed == TRUE){
     g1 <- round(g1)
     g2 <- round(g2)
   }
@@ -55,7 +55,7 @@ interaction.calc <- function(qt, g1, g2, round_imputed = F, dominance_terms = F,
     Int_data <- as.data.frame(cbind(qt, int))
     Int_data <- cbind(Int_data, g1)
     Int_data <- cbind(Int_data, g2)
-    if(dominance_terms == T){
+    if(dominance_terms == TRUE){
       Int_data$g1_dom <- as.numeric(round(g1) == 2)
       Int_data$g2_dom <- as.numeric(round(g2) == 2)
     }

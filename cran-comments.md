@@ -1,3 +1,14 @@
+## Revision from first submission
+
+We got some comments from Beni Altmann, they have been addressed in the following manner:
+
+1) Added single quotes in Description field and removed linebreaks.
+2) Added reference to one article in the description field.
+3) Made authors as contributors with ctb and added deCODE/Amgen as cph and fnd.
+4) Replaced all occurrences T and F with TRUE and FALSE.
+
+Hope this covers all issues, thanks for reviewing the package!
+
 ## Test environments
 
 * rhub with devtools::check_rhub

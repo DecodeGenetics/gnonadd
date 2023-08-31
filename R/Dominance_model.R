@@ -19,9 +19,9 @@
 #' qt_vec <- rnorm(100000) + 0.2 * g_vec^2
 #' res <- dominance.calc(qt_vec, g_vec)
 #' @export
-dominance.calc <- function(qt, g, round_imputed = F, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
+dominance.calc <- function(qt, g, round_imputed = FALSE, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
   g_rounded <- round(g)
-  if(round_imputed == T){
+  if(round_imputed == TRUE){
     g <- round(g)
   }
   if(length(unique(as.factor(g_rounded))) < 3) {

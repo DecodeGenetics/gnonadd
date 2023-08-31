@@ -147,7 +147,7 @@ alpha.cond <- function(qt, g, g_covar, iter_num=50) {
     #Finally we compare the maximized likelyhood functions to obtain an approximated X2-statistic
     X2 <- 2 * (l_alt - l_null)
     alpha_alt <- alpha_alt^(flips)
-    P <- stats::pchisq(X2, 1, lower.tail = F)
+    P <- stats::pchisq(X2, 1, lower.tail = FALSE)
   }
   return(list(alpha = alpha_alt[1], pval = P))
 }

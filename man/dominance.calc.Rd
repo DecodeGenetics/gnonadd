@@ -7,7 +7,7 @@
 dominance.calc(
   qt,
   g,
-  round_imputed = F,
+  round_imputed = FALSE,
   covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))
 )
 }

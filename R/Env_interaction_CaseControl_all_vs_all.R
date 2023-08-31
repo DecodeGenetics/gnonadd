@@ -34,7 +34,7 @@
 #' res <- pairwise_env_int_CC.calc(cc_vec, g_vec, env_vec)
 #' @export
 pairwise_env_int_CC.calc <- function(cc, g, env, yob = rep(-1,length(cc)), sex = rep(-1,length(cc)),
-                                     round_imputed = F, dominance_term = F, square_env = F, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0)),
+                                     round_imputed = FALSE, dominance_term = FALSE, square_env = FALSE, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0)),
                                      variant_names = paste(rep('variant', ncol(g)), as.character(1:ncol(g)), sep="_"),
                                      env_names =  paste(rep('env', ncol(env)), as.character(1:ncol(env)), sep="_")){
   pair_number <- ncol(g) * ncol(env)

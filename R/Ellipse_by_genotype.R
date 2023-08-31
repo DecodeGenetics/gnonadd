@@ -73,7 +73,7 @@ ellipse.by.gen <- function(qt1, qt2, g, trait_name1 = 'qt trait 1', trait_name2 
   }
   ggplot2::ggplot(D_sample, ggplot2::aes(x = qt1 , y = qt2 ,color = g_factor))+
     ggplot2::geom_point()+ggplot2::theme_classic()+
-    ggplot2::geom_smooth(method = 'lm', data = D, se = F, formula = stats::as.formula('y ~ x')) +
+    ggplot2::geom_smooth(method = 'lm', data = D, se = FALSE, formula = stats::as.formula('y ~ x')) +
     ggplot2::coord_fixed() +
     ggplot2::scale_color_manual(values = c('Non-carriers' = '#F8766D', 'Heterozygotes' = '#00BA38', 'Homozygotes' = '#619CFF')) +
     ggplot2::geom_segment(ggplot2::aes(x = Arrow_data[1, 1], y = Arrow_data[1, 2],

@@ -89,6 +89,6 @@ kappa_calc <- function(qt1, qt2, g, weight_scale=1, bias_scale=0) {
   l_alt <- (w0 * (z0 - z_alt)^2 + w1 * (z1 - z_alt - kappa)^2 + w2 * (z2 - z_alt - 2 * kappa)^2) / 2
 
   #Calculation of significance
-  p <- stats::pchisq(2 * (l_null - l_alt), 1,lower.tail = F)
+  p <- stats::pchisq(2 * (l_null - l_alt), 1,lower.tail = FALSE)
   return(list(kappa = kappa, pval = p))
 }

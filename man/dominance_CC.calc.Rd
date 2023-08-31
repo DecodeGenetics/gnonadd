@@ -9,7 +9,7 @@ dominance_CC.calc(
   g,
   yob = rep(-1, length(cc)),
   sex = rep(-1, length(cc)),
-  round_imputed = F,
+  round_imputed = FALSE,
   covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))
 )
 }

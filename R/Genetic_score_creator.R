@@ -27,8 +27,8 @@
 #' int_vec[, 3] <- runif(2, min = -0.5, max = 0.5)
 #' res <- PRS_creator(g_vec, beta_vec, dominance_effects = dom_vec, interaction_effects = int_vec)
 #' @export
-PRS_creator <- function(g, betas, dominance_effects = rep(0,length(betas)), interaction_effects = matrix(0, nrow = 0, ncol = 0), log_scale = F){
-  if(log_scale == T ){
+PRS_creator <- function(g, betas, dominance_effects = rep(0,length(betas)), interaction_effects = matrix(0, nrow = 0, ncol = 0), log_scale = FALSE){
+  if(log_scale == TRUE ){
     betas <- log(betas)
     dominance_effects <- log(dominance_effects)
     interaction_effects <- log(interaction_effects)
@@ -42,7 +42,7 @@ PRS_creator <- function(g, betas, dominance_effects = rep(0,length(betas)), inte
     qt <- qt + g1 * g2 * effect
   }
   qt <- qt - mean(qt)
-  if(log_scale == T){
+  if(log_scale == TRUE){
     qt <- exp(qt)
   }
   return(qt)

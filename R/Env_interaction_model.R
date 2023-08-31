@@ -25,11 +25,11 @@
 #' qt_vec <- rnorm(100000) + 0.1 * g_vec + 0.05 * env_vec + 0.05 * g_vec * env_vec
 #' res <- env_interaction.calc(qt_vec, g_vec, env_vec)
 #' @export
-env_interaction.calc <- function(qt, g, env, round_imputed = F, dominance_term = F,
-                                 square_env = F,  covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
+env_interaction.calc <- function(qt, g, env, round_imputed = FALSE, dominance_term = FALSE,
+                                 square_env = FALSE,  covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
   r <- rank(env)
   env_normal <- stats::qnorm(r / (length(r) + 1))
-  if(round_imputed == T){
+  if(round_imputed == TRUE){
     g <- round(g)
   }
   int <- g * env_normal
@@ -45,10 +45,10 @@ env_interaction.calc <- function(qt, g, env, round_imputed = F, dominance_term =
     Env_int_data <- as.data.frame(cbind(qt, int))
     Env_int_data <- cbind(Env_int_data, g)
     Env_int_data <- cbind(Env_int_data, env_normal)
-    if(dominance_term == T){
+    if(dominance_term == TRUE){
       Env_int_data$g_dom <- as.numeric(round(Env_int_data$g) == 2)
     }
-    if(square_env == T){
+    if(square_env == TRUE){
       Env_int_data$env_square <- (Env_int_data$env_normal)^2
     }
     if(nrow(covariates) > 0) {

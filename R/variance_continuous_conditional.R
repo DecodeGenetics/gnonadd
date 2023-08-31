@@ -63,7 +63,7 @@ alpha.continuous.cond <- function(qt, g, x, iter_num = 50, eps_param = 1e-10) {
 
   #Computation of significance
   X2 <- l_alt - l_null  #Note that I removed a factor of 1/2 when calculating l_null and l_alt. Hence there is no factor of 2 here.
-  p <- stats::pchisq(X2, 1, lower.tail = F)
+  p <- stats::pchisq(X2, 1, lower.tail = FALSE)
 
   return(list(alpha = a[1], pval = p, X2 = X2))
 }
