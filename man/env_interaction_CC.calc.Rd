@@ -10,9 +10,9 @@ env_interaction_CC.calc(
   env,
   yob = rep(-1, length(cc)),
   sex = rep(-1, length(cc)),
-  round_imputed = F,
-  dominance_term = F,
-  square_env = F,
+  round_imputed = FALSE,
+  dominance_term = FALSE,
+  square_env = FALSE,
   covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))
 )
 }

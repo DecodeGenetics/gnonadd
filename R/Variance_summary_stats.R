@@ -56,7 +56,7 @@ var.summary <- function(qt, x, iter_num = 50, eps_param = 1e-10) {
 
   #Comparing all with null
   X2_all_vs_null <- l_all - l_null
-  p_all_vs_null <- stats::pchisq(X2_all_vs_null, n_covars, lower.tail = F)
+  p_all_vs_null <- stats::pchisq(X2_all_vs_null, n_covars, lower.tail = FALSE)
 
   #Partial models
   M <- as.data.frame(matrix(0, nrow = n_covars, ncol = 5))
@@ -75,7 +75,7 @@ var.summary <- function(qt, x, iter_num = 50, eps_param = 1e-10) {
         l_partial <- l_partial - sum(a_partial[k] * x_partial[,k])
       }
       X2_partial <- l_all - l_partial
-      p_partial <- stats::pchisq(X2_partial, 1, lower.tail = F)
+      p_partial <- stats::pchisq(X2_partial, 1, lower.tail = FALSE)
       se_partial <- abs(a_all[i])/sqrt(X2_partial)
       M$se[i] <- se_partial
       M$X2[i] <- X2_partial
@@ -83,7 +83,7 @@ var.summary <- function(qt, x, iter_num = 50, eps_param = 1e-10) {
     }
   } else {
     M$X2[1] <- X2_all_vs_null
-    M$pval[1] <- stats::pchisq(X2_all_vs_null, 1, lower.tail = F)
+    M$pval[1] <- stats::pchisq(X2_all_vs_null, 1, lower.tail = FALSE)
     M$se[1] <- abs(a_all)/sqrt(X2_all_vs_null)
   }
   return(list(summary = M, chi2 = X2_all_vs_null, df = n_covars, pval = p_all_vs_null, adjusted_values = qt_var_adj))

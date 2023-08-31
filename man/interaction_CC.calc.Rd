@@ -10,8 +10,8 @@ interaction_CC.calc(
   g2,
   yob = rep(-1, length(cc)),
   sex = rep(-1, length(cc)),
-  round_imputed = F,
-  dominance_terms = F,
+  round_imputed = FALSE,
+  dominance_terms = FALSE,
   covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))
 )
 }

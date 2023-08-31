@@ -26,7 +26,7 @@
 #' res <- interaction_CC.calc(cc_vec, g1_vec, g2_vec)
 #' @export
 interaction_CC.calc <- function(cc, g1, g2, yob = rep(-1,length(cc)),
-                                sex = rep(-1,length(cc)), round_imputed = F, dominance_terms = F, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
+                                sex = rep(-1,length(cc)), round_imputed = FALSE, dominance_terms = FALSE, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
   flip <- 1   #We flip to the minor allele of each variant. This variable is used to flip the interaction effect in the end so it has the right sign.
   if(mean(g1) > 1){
     g1 <- 2 - g1
@@ -36,7 +36,7 @@ interaction_CC.calc <- function(cc, g1, g2, yob = rep(-1,length(cc)),
     flip <- - flip
     g2 <- 2 - g2
   }
-  if(round_imputed == T){
+  if(round_imputed == TRUE){
     g1 <- round(g1)
     g2 <- round(g2)
   }
@@ -57,7 +57,7 @@ interaction_CC.calc <- function(cc, g1, g2, yob = rep(-1,length(cc)),
     Int_data <- as.data.frame(cbind(cc, int))
     Int_data <- cbind(Int_data, g1)
     Int_data <- cbind(Int_data, g2)
-    if(dominance_terms == T){
+    if(dominance_terms == TRUE){
       Int_data$g1_dom <- as.numeric(round(Int_data$g1) == 2)
       Int_data$g2_dom <- as.numeric(round(Int_data$g2) == 2)
     }

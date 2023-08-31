@@ -9,7 +9,7 @@ PRS_creator(
   betas,
   dominance_effects = rep(0, length(betas)),
   interaction_effects = matrix(0, nrow = 0, ncol = 0),
-  log_scale = F
+  log_scale = FALSE
 )
 }
 \arguments{

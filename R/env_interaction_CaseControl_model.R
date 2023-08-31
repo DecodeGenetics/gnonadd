@@ -29,10 +29,10 @@
 #' res <- env_interaction_CC.calc(cc_vec, g_vec, env_vec)
 #' @export
 env_interaction_CC.calc <- function(cc, g, env,  yob = rep(-1,length(cc)), sex = rep(-1,length(cc)),
-                                    round_imputed = F, dominance_term = F, square_env = F, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
+                                    round_imputed = FALSE, dominance_term = FALSE, square_env = FALSE, covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
   r <- rank(env)
   env_normal <- stats::qnorm(r / (length(r) + 1))
-  if(round_imputed == T) {
+  if(round_imputed == TRUE) {
     g <- round(g)
   }
   int <- g * env_normal
@@ -52,10 +52,10 @@ env_interaction_CC.calc <- function(cc, g, env,  yob = rep(-1,length(cc)), sex =
     Env_int_data <- as.data.frame(cbind(cc, int))
     Env_int_data <- cbind(Env_int_data, g)
     Env_int_data <- cbind(Env_int_data, env_normal)
-    if(dominance_term == T){
+    if(dominance_term == TRUE){
       Env_int_data$g_dom <- as.numeric(round(Env_int_data$g) == 2)
     }
-    if(square_env == T){
+    if(square_env == TRUE){
       Env_int_data$env_square <- (Env_int_data$env_normal)^2
     }
     if(stats::sd(yob) > 0) {

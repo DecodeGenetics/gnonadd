@@ -3,13 +3,12 @@ Type: Package
 Title: Various Non-Additive Models for Genetic Associations
 Version: 1.0.1
 Authors@R: c(
-     person("Audunn S.", "Snaebjarnarson", , "audunn.snaebjarnarson@decode.is", role = c("aut", "cre")),
-     person("Gudmundur", "Einarsson", , "gudmundur.einarsson2@decode.is", role = c("aut")),
-     person("Daniel F.", "Gudbjartsson", , "daniel.gudbjartsson@decode.is", role = c("aut"))
+     person("Audunn S.", "Snaebjarnarson", , "audunn.snaebjarnarson@decode.is", role = c("aut", "cre", "ctb")),
+     person("Gudmundur", "Einarsson", , "gudmundur.einarsson2@decode.is", role = c("aut", "ctb")),
+     person("Daniel F.", "Gudbjartsson", , "daniel.gudbjartsson@decode.is", role = c("aut", "ctb")),
+     person("deCODE Genetics/AMGEN", role = c("cph", "fnd"))
      )
-Description: The goal of gnonadd is to simplify workflows in the analysis of non-additive effects of 
-    sequence variants. This includes variance effects, correlation effects, interaction 
-    effects and dominance effects. The package also includes convenience functions for visualization.
+Description: The goal of 'gnonadd' is to simplify workflows in the analysis of non-additive effects of sequence variants. This includes variance effects (Ivarsdottir et. al (2017) <doi:https://doi.org/10.1038/ng.3928>), correlation effects, interaction effects and dominance effects. The package also includes convenience functions for visualization.
 URL: https://github.com/DecodeGenetics/gnonadd
 BugReports: https://github.com/DecodeGenetics/gnonadd/issues
 License: MIT + file LICENSE

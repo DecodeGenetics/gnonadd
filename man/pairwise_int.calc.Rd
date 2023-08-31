@@ -7,8 +7,8 @@
 pairwise_int.calc(
   qt,
   g,
-  round_imputed = F,
-  dominance_terms = F,
+  round_imputed = FALSE,
+  dominance_terms = FALSE,
   variant_names = paste(rep("variant", ncol(g)), as.character(1:ncol(g)), sep = "_"),
   covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))
 )

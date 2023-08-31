@@ -25,7 +25,7 @@
 #'           g_vec[, 1] * g_vec[, 2]
 #' res <- pairwise_int.calc(qt_vec, g_vec)
 #' @export
-pairwise_int.calc <- function(qt, g, round_imputed = F, dominance_terms = F,
+pairwise_int.calc <- function(qt, g, round_imputed = FALSE, dominance_terms = FALSE,
                               variant_names = paste(rep('variant', ncol(g)), as.character(1:ncol(g)), sep="_"),
                               covariates = as.data.frame(matrix(0, nrow = 0, ncol = 0))){
   variant_number <- ncol(g)
