@@ -48,7 +48,7 @@ A dataframe with all possible variant-environmental pairs and their estimated in
 Given a set of variants and environmental traits, and a single case control variable, this function calculates the interaction effect of all possible variant-environmental pairs
 }
 \examples{
-N_run <- 50000
+N_run <- 25000
 g_vec <- matrix(0, nrow = N_run, ncol = 3)
 freqs <- runif(ncol(g_vec), min = 0, max = 1)
 env_vec <- matrix(0, nrow = N_run, ncol = 3)

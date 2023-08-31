@@ -15,7 +15,7 @@
 #' @returns
 #' A dataframe with all possible variant pairs and their estimated interaction effect
 #' @examples
-#' N_run <- 50000
+#' N_run <- 25000
 #' g_vec <- matrix(0, nrow = N_run, ncol = 5)
 #' freqs <- runif(ncol(g_vec), min = 0,max = 1)
 #' for(i in 1:ncol(g_vec)){

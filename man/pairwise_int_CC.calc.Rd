@@ -39,7 +39,7 @@ A dataframe with all possible variant pairs and their estimated interaction effe
 Given a set of variants and a case control variable, this function calculates the interaction effect of all possible variant-variant pairs
 }
 \examples{
-N_run <- 50000
+N_run <- 25000
 g_vec <- matrix(0, nrow = N_run, ncol = 5)
 freqs <- runif(ncol(g_vec), min = 0,max = 1)
 for(i in 1:ncol(g_vec)){
