@@ -108,4 +108,6 @@ out_df <- data.frame(f_par = f_allele,
                      alpha_hat_std = alpha_hat_std_vec,
                      beta_orig = betas)
 
-data.table::fwrite(out_df, file = paste0("./job_", job_ind, ".txt"))
+# This only needs to be done once, and CRAN does not allow any writing
+# into userspace, so we comment this line out for now.
+#data.table::fwrite(out_df, file = paste0("./job_", job_ind, ".txt"))

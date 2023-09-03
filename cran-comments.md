@@ -1,3 +1,15 @@
+## Revision from second submission
+
+Victoria Wimmer asked for us to make one change regarding writing to userspace.
+
+Commented out line that calls fwrite in: 
+
+inst/raw/create_variance_from_additive_lookup_table_step1.R
+
+since this violates CRAN policies.
+
+No other changes.
+
 ## Revision from first submission
 
 We got some comments from Beni Altmann, they have been addressed in the following manner:
