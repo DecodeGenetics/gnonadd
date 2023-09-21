@@ -11,3 +11,5 @@
 ## Changes from 1.0.1
 
 Minor changes to readme and added citation information for published article.
+
+Changed from citEntry to bibentry in inst/CITATION after failed CRAN tests.
