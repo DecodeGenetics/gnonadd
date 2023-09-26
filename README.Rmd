@@ -16,6 +16,9 @@ knitr::opts_chunk$set(
 # gnonadd
 
 <!-- badges: start -->
+[![CRAN](https://www.r-pkg.org/badges/version/gnonadd)](https://cran.r-project.org/package=gnonadd)
+[![Downloads](https://cranlogs.r-pkg.org/badges/gnonadd?color=brightgreen)](https://www.r-pkg.org/pkg/gnonadd)
+![alt tag](https://cranlogs.r-pkg.org/badges/grand-total/gnonadd)
 <!-- badges: end -->
 
 `gnonadd` is a package accompanying the paper [Complex effects of sequence variants on lipid levels and coronary artery disease](https://www.sciencedirect.com/science/article/pii/S0092867423009017?dgcid=coauthor) published in Cell September 2023. The package is intended to properly document the conducted analysis and aid researchers in studying various non-additive models.
