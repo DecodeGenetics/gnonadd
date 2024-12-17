@@ -30,7 +30,7 @@
 var.summary <- function(qt, x, iter_num = 50, eps_param = 1e-10) {
   x_matrix <- as.matrix(x)
   n_subjects <- length(qt)
-  n_covars <- ncol(x)
+  n_covars <- ncol(x_matrix)
 
   #First we mean adjust the trait
   A <- as.data.frame(cbind(qt, x))

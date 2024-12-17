@@ -43,7 +43,7 @@ alpha.continuous.cond <- function(qt, g, x, iter_num = 50, eps_param = 1e-10) {
   y <- stats::lm(formula_string)$residuals
 
   #Null model.
-  a <- alpha.multi.est(qt, x, iter_num, eps_param)
+  a <- alpha.multi.est(y, x, iter_num, eps_param)
   v <- exp(- (x %*% a))
   SigmaSq_null <- sum(y^2 * v) / n_subjects
   l_null <- - n_subjects * log(SigmaSq_null)
@@ -53,7 +53,7 @@ alpha.continuous.cond <- function(qt, g, x, iter_num = 50, eps_param = 1e-10) {
 
   #Alt model
   x_alt <- cbind(g, x)
-  a <- alpha.multi.est(qt, x_alt, iter_num, eps_param)
+  a <- alpha.multi.est(y, x_alt, iter_num, eps_param)
   v <- exp(- (x_alt %*% a))
   SigmaSq_alt <- sum(y^2 * v) / n_subjects
   l_alt <- - n_subjects * log(SigmaSq_alt)
