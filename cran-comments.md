@@ -10,4 +10,4 @@
 
 ## Changes from 1.0.2
 
-Minor bug fixes
+Minor bug fixes and changed link in readme to a doi link.

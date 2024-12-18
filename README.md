@@ -12,10 +12,10 @@
 
 `gnonadd` is a package accompanying the paper [Complex effects of
 sequence variants on lipid levels and coronary artery
-disease](https://www.sciencedirect.com/science/article/pii/S0092867423009017?dgcid=coauthor)
-published in Cell September 2023. The package is intended to properly
-document the conducted analysis and aid researchers in studying various
-non-additive models.
+disease](https://doi.org/10.1016/j.cell.2023.08.012) published in Cell
+September 2023. The package is intended to properly document the
+conducted analysis and aid researchers in studying various non-additive
+models.
 
 ## What is in the package?
 
@@ -79,7 +79,6 @@ For citing this package, please use the following source:
 
 ``` r
 citation("gnonadd")
-#> 
 #> To cite gnonadd in publications, please use
 #> 
 #>   Snaebjarnarson, Audunn S., et al. Complex effects of sequence
